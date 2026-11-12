@@ -24,7 +24,6 @@ export interface SkillGroup {
 
 export const profile = {
   name: 'R K Jyothish',
-  shortName: 'Jyothish RK',
   role: ['Cloud Infrastructure', 'Lead & Backend Engineer'],
   location: ['Based in', 'Bengaluru, India'],
   title: 'R K Jyothish · Cloud Infrastructure Lead',
@@ -48,7 +47,7 @@ export const intro = {
 export const timeline: Stop[] = [
   {
     year: '2021',
-    period: 'Sep 2021 – Aug 2025',
+    period: 'Sep 2021 - Aug 2025',
     title: 'B.Tech, Computer Science and Engineering',
     org: 'Vellore Institute of Technology, Chennai',
     stats: [
@@ -58,14 +57,14 @@ export const timeline: Stop[] = [
   },
   {
     year: '2023',
-    period: 'Aug – Nov 2023',
+    period: 'Aug - Nov 2023',
     title: 'Project Intern',
     org: 'Indira Gandhi Centre for Atomic Research',
     stats: [{ value: 8, suffix: '+', label: 'modular components for a virtual desktop system' }],
   },
   {
     year: '2025',
-    period: 'Jan – Jun 2025',
+    period: 'Jan - Jun 2025',
     title: 'Software Developer Engineer Intern',
     org: 'VComply Technologies',
     stats: [
@@ -74,8 +73,8 @@ export const timeline: Stop[] = [
     ],
   },
   {
-    year: '2025–26',
-    period: 'Jul 2025 – Jul 2026',
+    year: '2025-26',
+    period: 'Jul 2025 - Jul 2026',
     title: 'Software Developer Engineer 1',
     org: 'VComply Technologies',
     stats: [
@@ -86,7 +85,7 @@ export const timeline: Stop[] = [
   },
   {
     year: 'Now',
-    period: 'Aug 2026 – Present',
+    period: 'Aug 2026 - Present',
     title: 'Cloud Infrastructure Lead',
     org: 'VComply Technologies, Bengaluru',
     current: true,
