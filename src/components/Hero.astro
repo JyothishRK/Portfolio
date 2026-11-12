@@ -1,0 +1,282 @@
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/portrait.webp';
+import { nav, profile } from '../data/site';
+
+// Repeated so the sliding strip never shows a gap; screen readers get the h1 instead.
+const repeats = Array.from({ length: 4 });
+---
+
+<header class="hero" data-hero>
+  <nav class="nav" aria-label="Main" data-hero-fade>
+    <a href="#top">{profile.shortName}</a>
+    <ul>
+      {nav.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <h1 class="sr-only">
+    {profile.name}, {profile.role.join(' ')}
+  </h1>
+
+  <p class="pill" data-hero-pill>
+    <span>
+      {profile.location[0]}
+      <br />
+      {profile.location[1]}
+    </span>
+    <span class="globe" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <circle cx="12" cy="12" r="9"></circle>
+        <ellipse cx="12" cy="12" rx="4" ry="9"></ellipse>
+        <path d="M3 12h18M4.5 7.5h15M4.5 16.5h15"></path>
+      </svg>
+    </span>
+  </p>
+
+  <div class="portrait" data-hero-portrait>
+    <Picture
+      src={portrait}
+      formats={['avif']}
+      fallbackFormat="webp"
+      widths={[480, 800, portrait.width]}
+      sizes="(max-width: 767px) 92vw, 62vw"
+      alt="Stylized portrait of Jyothish"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <p class="role" data-hero-fade>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      aria-hidden="true"
+    >
+      <path d="M5 5l14 14M19 8v11H8"></path>
+    </svg>
+    {profile.role[0]}
+    <br />
+    {profile.role[1]}
+  </p>
+
+  <div class="marquee" aria-hidden="true" data-hero-marquee>
+    <div class="marquee-inner" data-hero-marquee-inner>
+      {repeats.map(() => (
+        <span>{profile.name} —</span>
+      ))}
+    </div>
+  </div>
+
+  <span class="scroll-hint mono" aria-hidden="true">
+    Scroll ↓
+  </span>
+</header>
+
+<script>
+  import '../scripts/hero';
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 560px;
+    background: var(--stone);
+    overflow: hidden;
+  }
+
+  .hero :focus-visible {
+    outline-color: var(--ink);
+  }
+
+  .nav {
+    position: absolute;
+    z-index: 5;
+    inset: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 26px var(--pad);
+    font-weight: 500;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: clamp(18px, 3vw, 44px);
+  }
+
+  .nav a {
+    position: relative;
+    display: block;
+    padding: 6px 0;
+  }
+
+  .nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--paper);
+    transform: translateX(-50%) scale(0);
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .nav a:hover::after {
+    transform: translateX(-50%) scale(1);
+  }
+
+  .portrait {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 64%;
+    translate: -50% 0;
+    will-change: transform;
+  }
+
+  .portrait :global(img) {
+    height: 100%;
+    width: auto;
+    max-width: none;
+  }
+
+  .pill {
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    top: 11%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    padding: 8px 14px 8px var(--pad);
+    border-radius: 0 60px 60px 0;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .globe {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3a3b38;
+  }
+
+  .globe svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .role {
+    position: absolute;
+    z-index: 4;
+    left: var(--pad);
+    top: 23%;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .role svg {
+    display: none;
+    width: 22px;
+    height: 22px;
+    margin-bottom: clamp(28px, 6vh, 70px);
+  }
+
+  .marquee {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    bottom: clamp(18px, 5vh, 60px);
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .marquee span {
+    font-size: clamp(88px, 15.5vw, 290px);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    white-space: nowrap;
+    padding-right: 0.28em;
+  }
+
+  .scroll-hint {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    right: var(--pad);
+    bottom: 22px;
+  }
+
+  @media (max-width: 767px) {
+    .nav li:not(:last-child) {
+      display: none;
+    }
+  }
+
+  /* Side labels need room beside the portrait, so tablets keep the stacked arrangement. */
+  @media (min-width: 1024px) {
+    .portrait {
+      height: 90%;
+    }
+
+    .pill {
+      top: 46%;
+      gap: 22px;
+      padding-block: 14px;
+      font-size: 15px;
+    }
+
+    .globe {
+      width: 54px;
+      height: 54px;
+    }
+
+    .role {
+      left: auto;
+      right: var(--pad);
+      top: 34%;
+      font-size: clamp(20px, 2.3vw, 34px);
+    }
+
+    .role svg {
+      display: block;
+    }
+
+    .scroll-hint {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .globe svg {
+      animation: spin 14s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

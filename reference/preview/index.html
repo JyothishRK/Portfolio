@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R K Jyothish · Cloud Infrastructure Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone: #a3a39b;
+    --ink: #141513;
+    --paper: #f3f2ee;
+    --line: rgba(243, 242, 238, .22);
+    --accent: #d8ff5c;
+    --pad: clamp(16px, 3vw, 44px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--ink); color: var(--paper);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-size: 17px; line-height: 1.45; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+
+  /* film grain over everything */
+  .grain { position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; height: 100svh; min-height: 560px; background: var(--stone); overflow: hidden; }
+  .nav { position: absolute; z-index: 5; inset: 0 0 auto 0; display: flex; justify-content: space-between; padding: 26px var(--pad); font-weight: 500; }
+  .nav ul { display: flex; gap: clamp(18px, 3vw, 44px); list-style: none; padding: 0; }
+  .nav a { position: relative; padding: 6px 0; }
+  .nav a::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 5px; height: 5px; border-radius: 50%; background: var(--paper); transform: translateX(-50%) scale(0); transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
+  .nav a:hover::after { transform: translateX(-50%) scale(1); }
+
+  .portrait { position: absolute; left: 50%; bottom: 0; height: 90%; transform: translateX(-50%); will-change: transform; }
+  .portrait img { height: 100%; width: auto; display: block; filter: saturate(.92) contrast(1.02); }
+
+  .pill { position: absolute; z-index: 4; left: 0; top: 46%; display: flex; align-items: center; gap: 22px;
+    background: var(--ink); padding: 14px 14px 14px var(--pad); border-radius: 0 60px 60px 0; font-size: 15px; line-height: 1.25; }
+  .globe { width: 54px; height: 54px; border-radius: 50%; background: #3a3b38; display: grid; place-items: center; }
+  .globe svg { width: 26px; height: 26px; animation: spin 14s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .role { position: absolute; z-index: 4; right: var(--pad); top: 34%; font-size: clamp(20px, 2.3vw, 34px); line-height: 1.2; font-weight: 500; }
+  .role svg { width: 22px; height: 22px; display: block; margin-bottom: clamp(28px, 6vh, 70px); }
+
+  .marquee { position: absolute; z-index: 3; left: 0; bottom: clamp(18px, 5vh, 60px); width: 100%; overflow: hidden; pointer-events: none; }
+  .marquee-inner { display: flex; width: max-content; will-change: transform; }
+  .marquee span { font-size: clamp(88px, 15.5vw, 290px); font-weight: 500; letter-spacing: -.035em; line-height: 1; white-space: nowrap; padding-right: .28em; }
+
+  .scroll-hint { position: absolute; z-index: 4; right: var(--pad); bottom: 22px; }
+
+  /* ---------- intro ---------- */
+  .intro { padding: clamp(90px, 16vh, 190px) var(--pad); display: grid; grid-template-columns: 1fr minmax(0, 46ch); gap: 40px; max-width: 1500px; margin: 0 auto; }
+  .intro h2 { font-size: clamp(30px, 4.2vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.025em; max-width: 18ch; }
+  .intro h2 em { font-style: normal; color: var(--accent); }
+  .intro p { color: rgba(243, 242, 238, .72); align-self: end; }
+
+  /* ---------- timeline ---------- */
+  .route { position: relative; }
+  .route-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 var(--pad) 22px; border-bottom: 1px solid var(--line); }
+  .route-head h3 { font-size: clamp(22px, 2.4vw, 34px); font-weight: 500; letter-spacing: -.02em; }
+  .viewport { overflow: hidden; }
+  .track { position: relative; display: flex; width: max-content; padding: 0 var(--pad); }
+  .rail { position: absolute; left: 0; right: 0; top: 168px; height: 1px; background: var(--line); }
+  .rail i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+  .stop { position: relative; width: min(74vw, 620px); padding: 44px clamp(24px, 4vw, 72px) 60px 0; flex: none; }
+  .stop .year { font-size: clamp(64px, 8vw, 124px); font-weight: 500; letter-spacing: -.04em; line-height: 1; height: 124px; display: flex; align-items: flex-end; }
+  .stop .dot { position: absolute; top: 162px; left: 0; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); border: 1px solid var(--paper); transition: background .4s, border-color .4s, transform .5s cubic-bezier(.3, 1.6, .5, 1); }
+  .stop.on .dot { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+  .stop .when { margin-top: 44px; color: rgba(243, 242, 238, .6); }
+  .stop h4 { font-size: clamp(24px, 2.4vw, 34px); font-weight: 500; letter-spacing: -.02em; line-height: 1.12; margin-top: 12px; }
+  .stop .org { color: rgba(243, 242, 238, .7); margin-top: 6px; }
+  .stats { display: flex; gap: 34px; margin-top: 34px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: clamp(34px, 3.6vw, 54px); font-weight: 500; letter-spacing: -.03em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat span { display: block; margin-top: 8px; font-size: 14px; color: rgba(243, 242, 238, .66); max-width: 18ch; }
+  .stop.now .year { color: var(--accent); }
+
+  /* ---------- contact ---------- */
+  .contact { position: relative; padding: clamp(100px, 18vh, 220px) var(--pad) 40px; border-top: 1px solid var(--line); margin-top: 60px; }
+  .contact h2 { font-size: clamp(48px, 9vw, 150px); font-weight: 500; letter-spacing: -.04em; line-height: .98; }
+  .cta { position: relative; display: inline-grid; place-items: center; width: clamp(140px, 14vw, 190px); aspect-ratio: 1; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 600; margin: 48px 0 0 auto; }
+  .cta-wrap { display: flex; border-top: 1px solid var(--line); margin-top: 60px; }
+  .cta-wrap .cta { transform: translateY(-50%); margin-right: 8vw; }
+  .links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: -30px; }
+  .links a { border: 1px solid var(--line); border-radius: 60px; padding: 18px 28px; transition: background .3s, color .3s, border-color .3s; }
+  .links a:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .foot { display: flex; justify-content: space-between; margin-top: 90px; color: rgba(243, 242, 238, .5); }
+  .tag { position: fixed; z-index: 60; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(20, 21, 19, .8); border: 1px solid var(--line); padding: 7px 14px; border-radius: 40px; backdrop-filter: blur(8px); white-space: nowrap; }
+
+  /* ---------- small screens: timeline goes vertical ---------- */
+  @media (max-width: 767px) {
+    .nav ul li:not(:last-child) { display: none; }
+    .portrait { height: 64%; }
+    .pill { top: 11%; font-size: 13px; gap: 12px; padding-block: 8px; }
+    .globe { width: 40px; height: 40px; }
+    .role { top: 23%; right: auto; left: var(--pad); font-size: 19px; }
+    .role svg { display: none; }
+    .scroll-hint { display: none; }
+    .intro { grid-template-columns: 1fr; }
+    .track { display: block; width: auto; padding-left: calc(var(--pad) + 26px); }
+    .rail { left: var(--pad); right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+    .rail i { transform: none; opacity: .5; }
+    .stop { width: auto; padding: 36px 0 26px; }
+    .stop .year { height: auto; }
+    .stop .dot { top: 62px; left: -32px; }
+    .stop .when { margin-top: 16px; }
+    .cta-wrap .cta { margin-right: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .globe svg { animation: none; } }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="hero">
+  <nav class="nav" aria-label="Main">
+    <a href="#top">Jyothish RK</a>
+    <ul>
+      <li><a href="#route">Route</a></li>
+      <li><a href="#route">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="pill">
+    <span>Based in<br>Bengaluru, India</span>
+    <span class="globe" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f3f2ee" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M4.5 7.5h15M4.5 16.5h15"/></svg>
+    </span>
+  </div>
+
+  <div class="portrait"><img src="portrait.webp" alt="Stylized portrait of Jyothish" width="1145" height="1347"></div>
+
+  <p class="role">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l14 14M19 8v11H8"/></svg>
+    Cloud Infrastructure<br>Lead &amp; Backend Engineer
+  </p>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>R K Jyothish —</span><span>R K Jyothish —</span><span>R K Jyothish —</span><span>R K Jyothish —</span>
+    </div>
+  </div>
+  <h1 style="position:absolute;left:-9999px">R K Jyothish</h1>
+  <span class="scroll-hint mono">Scroll ↓</span>
+</header>
+
+<main id="top">
+  <section class="intro">
+    <h2>I keep systems for <em>50+ enterprise tenants</em> running across AWS and GCP.</h2>
+    <p>Architecture, deployments, security, cost and production reliability, with zero-downtime migrations along the way. Below is the route that got me here.</p>
+  </section>
+
+  <section class="route" id="route" aria-label="Career timeline">
+    <div class="route-head">
+      <h3>The route so far</h3>
+      <span class="mono">2021 → now</span>
+    </div>
+    <div class="viewport">
+      <div class="track">
+        <div class="rail" aria-hidden="true"><i></i></div>
+
+        <article class="stop">
+          <div class="year">2021</div><span class="dot"></span>
+          <p class="when mono">Sep 2021 – Aug 2025</p>
+          <h4>B.Tech, Computer Science and Engineering</h4>
+          <p class="org">Vellore Institute of Technology, Chennai</p>
+          <div class="stats">
+            <div class="stat"><b data-n="9.51" data-d="2">9.51</b><span>CGPA out of 10</span></div>
+            <div class="stat"><b data-n="500" data-s="+">500+</b><span>competitive problems solved</span></div>
+          </div>
+        </article>
+
+        <article class="stop">
+          <div class="year">2023</div><span class="dot"></span>
+          <p class="when mono">Aug – Nov 2023</p>
+          <h4>Project Intern</h4>
+          <p class="org">Indira Gandhi Centre for Atomic Research</p>
+          <div class="stats">
+            <div class="stat"><b data-n="8" data-s="+">8+</b><span>modular components for a virtual desktop system</span></div>
+          </div>
+        </article>
+
+        <article class="stop">
+          <div class="year">2025</div><span class="dot"></span>
+          <p class="when mono">Jan – Jun 2025</p>
+          <h4>Software Developer Engineer Intern</h4>
+          <p class="org">VComply Technologies</p>
+          <div class="stats">
+            <div class="stat"><b data-n="60" data-s="%">60%</b><span>lower API latency</span></div>
+            <div class="stat"><b data-n="10" data-s="+">10+</b><span>entity types kept in sync</span></div>
+          </div>
+        </article>
+
+        <article class="stop">
+          <div class="year">2025</div><span class="dot"></span>
+          <p class="when mono">Jul 2025 – Jul 2026</p>
+          <h4>Software Developer Engineer 1</h4>
+          <p class="org">VComply Technologies</p>
+          <div class="stats">
+            <div class="stat"><b data-n="100" data-s="k+">100k+</b><span>events a day at peak</span></div>
+            <div class="stat"><b data-n="35" data-s="%" data-p="~">~35%</b><span>faster incident recovery</span></div>
+            <div class="stat"><b data-n="0">0</b><span>downtime in Phase-1 migration</span></div>
+          </div>
+        </article>
+
+        <article class="stop now">
+          <div class="year">Now</div><span class="dot"></span>
+          <p class="when mono">Aug 2026 – Present</p>
+          <h4>Cloud Infrastructure Lead</h4>
+          <p class="org">VComply Technologies, Bengaluru</p>
+          <div class="stats">
+            <div class="stat"><b data-n="80" data-s="%" data-p="~">~80%</b><span>less manual release and review work</span></div>
+            <div class="stat"><b data-n="3">3</b><span>platforms on AWS and GCP</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Let's build<br>something reliable</h2>
+    <div class="cta-wrap"><a class="cta" href="mailto:rkjyothish@gmail.com">Get in touch</a></div>
+    <div class="links">
+      <a href="mailto:rkjyothish@gmail.com">rkjyothish@gmail.com</a>
+      <a href="https://linkedin.com/in/rkjyothish">LinkedIn</a>
+      <a href="https://github.com/JyothishRK">GitHub</a>
+    </div>
+    <div class="foot mono"><span>Preview build</span><span>2026</span></div>
+  </section>
+</main>
+
+<div class="tag mono">Preview · hero + timeline only</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const mm = gsap.matchMedia();
+
+// Motion only for people who haven't asked for less of it.
+mm.add("(prefers-reduced-motion: no-preference)", () => {
+  // smooth inertia scrolling
+  const lenis = new Lenis({ lerp: 0.09 });
+  lenis.on("scroll", ScrollTrigger.update);
+  const raf = (t) => lenis.raf(t * 1000);
+  gsap.ticker.add(raf);
+  gsap.ticker.lagSmoothing(0);
+
+  // hero entrance
+  gsap.from(".portrait", { yPercent: 12, opacity: 0, duration: 1.3, ease: "power3.out" });
+  gsap.from(".marquee", { yPercent: 60, opacity: 0, duration: 1.2, delay: .15, ease: "power3.out" });
+  gsap.from(".pill", { xPercent: -100, duration: 1, delay: .5, ease: "power3.out" });
+  gsap.from([".role", ".nav"], { opacity: 0, y: 20, duration: 1, delay: .6, stagger: .1, ease: "power2.out" });
+
+  // name slides forever; direction follows scroll direction
+  const slide = gsap.to(".marquee-inner", { xPercent: -50, duration: 26, ease: "none", repeat: -1 });
+  slide.totalTime(slide.duration() * 200);
+  ScrollTrigger.create({ onUpdate: (s) => gsap.to(slide, { timeScale: s.direction, duration: .5, overwrite: true }) });
+
+  // hero parallax
+  gsap.to(".portrait", { yPercent: 14, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".marquee", { yPercent: -45, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  gsap.from(".intro > *", { y: 50, opacity: 0, duration: 1, stagger: .12, ease: "power3.out", scrollTrigger: { trigger: ".intro", start: "top 75%" } });
+
+  // magnetic button
+  const cta = document.querySelector(".cta");
+  const move = (e) => { const r = cta.getBoundingClientRect(); gsap.to(cta, { x: (e.clientX - r.left - r.width / 2) * .35, y: (e.clientY - r.top - r.height / 2) * .35, duration: .4 }); };
+  const back = () => gsap.to(cta, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, .35)" });
+  cta.addEventListener("mousemove", move); cta.addEventListener("mouseleave", back);
+
+  return () => { lenis.destroy(); gsap.ticker.remove(raf); cta.removeEventListener("mousemove", move); cta.removeEventListener("mouseleave", back); };
+});
+
+// numbers count up once when their stop arrives
+function countUp(stop) {
+  stop.querySelectorAll("b[data-n]").forEach((b) => {
+    const end = +b.dataset.n, d = +(b.dataset.d || 0), o = { v: 0 };
+    gsap.to(o, { v: end, duration: 1.3, ease: "power2.out", onUpdate: () => { b.textContent = (b.dataset.p || "") + o.v.toFixed(d) + (b.dataset.s || ""); } });
+  });
+}
+const stops = gsap.utils.toArray(".stop");
+const arrive = (stop) => { if (!stop.classList.contains("on")) { stop.classList.add("on"); countUp(stop); } };
+
+// Wide screens: page locks and vertical scroll drives the timeline sideways.
+mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+  const track = document.querySelector(".track");
+  const dist = () => track.scrollWidth - window.innerWidth;
+  const tl = gsap.timeline({ scrollTrigger: { trigger: ".route", start: "top 12%", end: () => "+=" + dist(), pin: true, scrub: .6, invalidateOnRefresh: true } });
+  const check = () => stops.forEach((stop) => { if (stop.getBoundingClientRect().left < window.innerWidth * .72) arrive(stop); });
+  tl.eventCallback("onUpdate", check);
+  // the lit line's tip stays at 72% of the screen, exactly where stops switch on
+  const tip = (scrolled) => (scrolled + window.innerWidth * .72) / track.scrollWidth;
+  tl.to(track, { x: () => -dist(), ease: "none" }, 0).fromTo(".rail i", { scaleX: () => tip(0) }, { scaleX: () => Math.min(1, tip(dist())), ease: "none" }, 0);
+});
+
+// Phones and reduced motion: plain vertical timeline.
+mm.add("(max-width: 767px), (prefers-reduced-motion: reduce)", () => {
+  stops.forEach((stop) => ScrollTrigger.create({ trigger: stop, start: "top 80%", onEnter: () => arrive(stop) }));
+});
+</script>
+</body>
+</html>

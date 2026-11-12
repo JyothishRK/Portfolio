@@ -1,0 +1,56 @@
+---
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '../styles/global.css';
+import sansUrl from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
+import { profile } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(`${base}/`, Astro.site);
+const ogImage = new URL(`${base}/og.png`, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{profile.title}</title>
+    <meta name="description" content={profile.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <meta name="theme-color" content="#141513" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={profile.title} />
+    <meta property="og:description" content={profile.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href={sansUrl} as="font" type="font/woff2" crossorigin />
+    <!-- Marks that scripts run, so CSS can pick the sideways timeline without a flash. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <slot />
+    <script>
+      import '../scripts/smooth-scroll';
+      import '../scripts/reveal';
+    </script>
+  </body>
+</html>
+
+<style>
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    /* A flat image at low opacity: a live SVG filter with a blend mode stalled slow phones. */
+    opacity: 0.045;
+    background-image: url('../assets/grain.png');
+    background-size: 160px;
+  }
+</style>
