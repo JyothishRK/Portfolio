@@ -29,5 +29,7 @@ npm run build   # production build into dist/
 
 ## Deploy
 
-`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `main`.
-The repository's Pages setting must use "GitHub Actions" as its source.
+- **Vercel (main site, rkjyothish.vercel.app):** deploys automatically on every push. `vercel.json` tells it to build with Astro, and `package.json` pins the Node version Astro needs.
+- **GitHub Pages (jyothishrk.github.io/Portfolio):** `.github/workflows/deploy.yml` builds and publishes on every push to `main`. The repository's Pages setting must use "GitHub Actions" as its source.
+
+`astro.config.mjs` picks the right base path for each host.
