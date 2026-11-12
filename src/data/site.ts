@@ -31,6 +31,9 @@ export const profile = {
     'Cloud Infrastructure Lead and backend engineer running multi-cloud systems on AWS and GCP for 50+ enterprise tenants.',
 } as const;
 
+// Cycled on the intro screen: English, Hindi, Tamil, Kannada, Spanish, French.
+export const greetings = ['Hello', 'Namaste', 'Vanakkam', 'Namaskara', 'Hola', 'Bonjour'] as const;
+
 export const nav = [
   { label: 'Route', href: '#route' },
   { label: 'Work', href: '#work' },
