@@ -1,0 +1,223 @@
+---
+import { formatStat, timeline } from '../data/site';
+
+const first = timeline[0]?.year ?? '';
+---
+
+<section class="route" id="route" aria-labelledby="route-title" data-route>
+  <div class="section-head route-head">
+    <h2 id="route-title">The route so far</h2>
+    <span class="mono">{first} → now</span>
+  </div>
+
+  <div class="viewport">
+    <ol class="track" data-route-track>
+      <li class="rail" aria-hidden="true">
+        <i data-route-fill></i>
+      </li>
+      {timeline.map((stop) => (
+        <li class:list={['stop', { now: stop.current }]} data-route-stop>
+          <p class="year">{stop.year}</p>
+          <span class="dot" aria-hidden="true" />
+          <p class="when mono">{stop.period}</p>
+          <h3>{stop.title}</h3>
+          <p class="org">{stop.org}</p>
+          <dl class="stats">
+            {stop.stats.map((stat) => (
+              <div class="stat">
+                <dt>{stat.label}</dt>
+                <dd
+                  data-count={stat.value}
+                  data-decimals={stat.decimals}
+                  data-prefix={stat.prefix}
+                  data-suffix={stat.suffix}
+                >
+                  {formatStat(stat)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<script>
+  import '../scripts/timeline';
+</script>
+
+<style>
+  /* Default is a plain vertical timeline: phones, reduced motion, and no JavaScript. */
+  .route {
+    padding-top: clamp(28px, 10vh, 96px);
+  }
+
+  .route-head {
+    margin-inline: var(--pad);
+  }
+
+  .track {
+    position: relative;
+    padding-left: calc(var(--pad) + 26px);
+    padding-right: var(--pad);
+  }
+
+  .rail {
+    position: absolute;
+    left: var(--pad);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .rail i {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .stop {
+    position: relative;
+    padding: 36px 0 26px;
+  }
+
+  .year {
+    font-size: clamp(64px, 8vw, 124px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .now .year {
+    color: var(--accent);
+  }
+
+  .dot {
+    position: absolute;
+    top: 62px;
+    left: -32px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 1px solid var(--paper);
+    transition:
+      background 0.4s,
+      border-color 0.4s,
+      scale 0.5s var(--ease-spring);
+  }
+
+  .stop.on .dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    scale: 1.35;
+  }
+
+  .when {
+    margin-top: 16px;
+    color: var(--faint);
+  }
+
+  h3 {
+    margin-top: 12px;
+    font-size: clamp(24px, 2.4vw, 34px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+  }
+
+  .org {
+    margin-top: 6px;
+    color: var(--muted);
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 34px;
+    margin-top: 34px;
+  }
+
+  /* The number is the headline, so it is shown above its label. */
+  .stat {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .stat dd {
+    font-size: clamp(34px, 3.6vw, 54px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat dt {
+    max-width: 18ch;
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Wide screens with motion allowed: the stops sit in a row and scrolling moves them sideways. */
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    /* Fills the screen while pinned, with the row centred so no empty band sits under it. */
+    :global(html.js) .route {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100svh;
+      padding-top: 0;
+    }
+
+    :global(html.js) .viewport {
+      overflow: hidden;
+    }
+
+    :global(html.js) .track {
+      display: flex;
+      width: max-content;
+      padding-inline: var(--pad);
+    }
+
+    :global(html.js) .rail {
+      left: 0;
+      right: 0;
+      top: 168px;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+
+    :global(html.js) .rail i {
+      opacity: 1;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    :global(html.js) .stop {
+      flex: none;
+      width: min(74vw, 620px);
+      padding: 44px clamp(24px, 4vw, 72px) 60px 0;
+    }
+
+    :global(html.js) .year {
+      display: flex;
+      align-items: flex-end;
+      height: 124px;
+    }
+
+    :global(html.js) .dot {
+      top: 162px;
+      left: 0;
+    }
+
+    :global(html.js) .when {
+      margin-top: 44px;
+    }
+  }
+</style>

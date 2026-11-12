@@ -1,0 +1,48 @@
+---
+import { intro } from '../data/site';
+---
+
+<section class="intro wrap" data-reveal="children">
+  <h2>
+    {intro.before}
+    <em>{intro.highlight}</em>
+    {intro.after}
+  </h2>
+  <p>{intro.body}</p>
+</section>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 40px;
+    padding-block: var(--section);
+  }
+
+  h2 {
+    max-width: 18ch;
+    font-size: clamp(30px, 4.2vw, 68px);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  p {
+    max-width: 46ch;
+    color: var(--muted);
+  }
+
+  @media (min-width: 768px) {
+    .intro {
+      grid-template-columns: 1fr minmax(0, 46ch);
+    }
+
+    p {
+      align-self: end;
+    }
+  }
+</style>

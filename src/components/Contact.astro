@@ -1,0 +1,119 @@
+---
+import { contact, profile } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2 data-reveal>
+      {contact.heading[0]}
+      <br />
+      {contact.heading[1]}
+    </h2>
+
+    <div class="rule">
+      <a class="cta" href={`mailto:${contact.email}`} data-magnetic>
+        Get in touch
+      </a>
+    </div>
+
+    <ul class="links">
+      <li>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </li>
+      {contact.links.map((link) => (
+        <li>
+          <a href={link.href} rel="noopener">
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="foot mono">
+      <span>{profile.shortName}</span>
+      <span>{year}</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  import '../scripts/magnetic';
+</script>
+
+<style>
+  .contact {
+    margin-top: var(--section);
+    padding: clamp(100px, 18vh, 220px) 0 40px;
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    font-size: clamp(48px, 9vw, 150px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .rule {
+    display: flex;
+    justify-content: flex-end;
+    /* Leaves room for the button, which straddles this line, to clear the heading. */
+    margin-top: calc(40px + clamp(140px, 14vw, 190px) / 2);
+    border-top: 1px solid var(--line);
+  }
+
+  .cta {
+    display: grid;
+    place-items: center;
+    width: clamp(140px, 14vw, 190px);
+    aspect-ratio: 1;
+    margin-top: calc(clamp(140px, 14vw, 190px) / -2);
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+  }
+
+  .links a {
+    display: block;
+    padding: 18px 28px;
+    border: 1px solid var(--line);
+    border-radius: 60px;
+    transition:
+      background 0.3s,
+      color 0.3s,
+      border-color 0.3s;
+  }
+
+  .links a:hover {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 90px;
+    color: var(--faint);
+  }
+
+  @media (min-width: 768px) {
+    .cta {
+      margin-right: 8vw;
+    }
+
+    .links {
+      margin-top: -30px;
+    }
+  }
+</style>

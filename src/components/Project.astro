@@ -1,0 +1,99 @@
+---
+import { project } from '../data/site';
+---
+
+<section class="work wrap" id="work" aria-labelledby="work-title">
+  <div class="section-head">
+    <h2 id="work-title">Selected work</h2>
+    <span class="mono">Side project</span>
+  </div>
+
+  <article class="project" data-reveal="children">
+    <div class="lead">
+      <p class="mono date">{project.date}</p>
+      <h3>{project.name}</h3>
+      <p class="tagline">{project.tagline}</p>
+    </div>
+
+    <div class="detail">
+      <p class="summary">{project.summary}</p>
+      <ul class="features">
+        {project.features.map((feature) => (
+          <li>{feature}</li>
+        ))}
+      </ul>
+      <ul class="stack" aria-label="Built with">
+        {project.stack.map((tech) => (
+          <li class="mono">{tech}</li>
+        ))}
+      </ul>
+    </div>
+  </article>
+</section>
+
+<style>
+  .work {
+    padding-top: var(--section);
+  }
+
+  .project {
+    display: grid;
+    gap: 40px;
+    padding-top: clamp(36px, 6vh, 72px);
+  }
+
+  .date {
+    color: var(--faint);
+  }
+
+  h3 {
+    margin-top: 14px;
+    font-size: clamp(60px, 10vw, 168px);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+
+  .tagline {
+    margin-top: 18px;
+    font-size: clamp(20px, 2vw, 28px);
+    color: var(--accent);
+  }
+
+  .summary {
+    max-width: 44ch;
+    font-size: clamp(18px, 1.5vw, 22px);
+    color: var(--muted);
+  }
+
+  .features {
+    margin-top: 30px;
+    border-top: 1px solid var(--line);
+  }
+
+  .features li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .stack li {
+    padding: 9px 16px;
+    border: 1px solid var(--line);
+    border-radius: 60px;
+  }
+
+  @media (min-width: 900px) {
+    .project {
+      grid-template-columns: 1.15fr minmax(0, 0.85fr);
+      align-items: end;
+      gap: clamp(40px, 6vw, 110px);
+    }
+  }
+</style>
