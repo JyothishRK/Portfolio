@@ -24,7 +24,6 @@ export interface SkillGroup {
 
 export const profile = {
   name: 'R K Jyothish',
-  shortName: 'Jyothish RK',
   role: ['Cloud Infrastructure', 'Lead & Backend Engineer'],
   location: ['Based in', 'Bengaluru, India'],
   title: 'R K Jyothish · Cloud Infrastructure Lead',
