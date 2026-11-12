@@ -1,0 +1,70 @@
+---
+import { greetings } from '../data/site';
+---
+
+<div class="intro" aria-hidden="true" data-intro data-greetings={greetings.join('|')}>
+  <p class="word">
+    <i></i>
+    <span data-intro-word>{greetings[0]}</span>
+  </p>
+  <div class="curve" data-intro-curve></div>
+</div>
+
+<style>
+  /* Hidden unless scripts run and motion is welcome, so it can never block the page. */
+  .intro {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .intro {
+      display: grid;
+      place-items: center;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--ink);
+      will-change: transform;
+      /* If the script never arrives, the screen still clears itself. */
+      animation: intro-failsafe 0s linear 6s forwards;
+    }
+
+    :global(html.intro-running) {
+      overflow: hidden;
+    }
+  }
+
+  .word {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .word i {
+    width: 0.28em;
+    height: 0.28em;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* A rounded lip under the panel, so its bottom edge bows as it lifts away. */
+  .curve {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: -15%;
+    width: 130%;
+    height: 22vh;
+    border-radius: 0 0 50% 50%;
+    background: var(--ink);
+    transform-origin: top;
+  }
+
+  @keyframes intro-failsafe {
+    to {
+      visibility: hidden;
+    }
+  }
+</style>

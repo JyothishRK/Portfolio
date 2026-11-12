@@ -102,13 +102,15 @@ const repeats = Array.from({ length: 4 });
     inset: 0 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     padding: 26px var(--pad);
+    font-size: clamp(15px, 1.2vw, 17px);
     font-weight: 500;
   }
 
   .nav ul {
     display: flex;
-    gap: clamp(18px, 3vw, 44px);
+    gap: clamp(16px, 3vw, 44px);
   }
 
   .nav a {
@@ -189,10 +191,10 @@ const repeats = Array.from({ length: 4 });
   }
 
   .role svg {
-    display: none;
-    width: 22px;
-    height: 22px;
-    margin-bottom: clamp(28px, 6vh, 70px);
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin-bottom: 10px;
   }
 
   .marquee {
@@ -228,12 +230,6 @@ const repeats = Array.from({ length: 4 });
     bottom: 22px;
   }
 
-  @media (max-width: 767px) {
-    .nav li:not(:last-child) {
-      display: none;
-    }
-  }
-
   /* Side labels need room beside the portrait, so tablets keep the stacked arrangement. */
   @media (min-width: 1024px) {
     .portrait {
@@ -260,7 +256,9 @@ const repeats = Array.from({ length: 4 });
     }
 
     .role svg {
-      display: block;
+      width: 22px;
+      height: 22px;
+      margin-bottom: clamp(28px, 6vh, 70px);
     }
 
     .scroll-hint {
