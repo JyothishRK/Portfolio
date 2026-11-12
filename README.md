@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-The site is served under `/Portfolio`, so open `http://localhost:4321/Portfolio/`.
+Then open `http://localhost:4321/`.
 
 ## Checks
 
@@ -29,7 +29,4 @@ npm run build   # production build into dist/
 
 ## Deploy
 
-- **Vercel (main site, rkjyothish.vercel.app):** deploys automatically on every push. `vercel.json` tells it to build with Astro, and `package.json` pins the Node version Astro needs.
-- **GitHub Pages (jyothishrk.github.io/Portfolio):** `.github/workflows/deploy.yml` builds and publishes on every push to `main`. The repository's Pages setting must use "GitHub Actions" as its source.
-
-`astro.config.mjs` picks the right base path for each host.
+Vercel deploys automatically on every push: pull requests get a preview, and `main` goes to rkjyothish.vercel.app. `vercel.json` tells it to build with Astro, and `package.json` pins the Node version Astro needs.
