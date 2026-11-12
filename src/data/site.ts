@@ -36,7 +36,7 @@ export const profile = {
 export const greetings = ['Hello', 'Namaste', 'Vanakkam', 'Namaskara', 'Hola', 'Bonjour'] as const;
 
 export const nav = [
-  { label: 'Route', href: '#route' },
+  { label: 'Journey', href: '#journey' },
   { label: 'Work', href: '#work' },
   { label: 'Contact', href: '#contact' },
 ] as const;
@@ -45,7 +45,7 @@ export const intro = {
   before: 'I keep systems for ',
   highlight: '50+ enterprise tenants',
   after: ' running across AWS and GCP.',
-  body: 'Architecture, deployments, security, cost and production reliability, with zero-downtime migrations along the way. Below is the route that got me here.',
+  body: 'Architecture, deployments, security, cost and production reliability, with zero-downtime migrations along the way. Below is the journey that got me here.',
 } as const;
 
 export const timeline: Stop[] = [
