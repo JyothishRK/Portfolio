@@ -22,6 +22,7 @@ const first = timeline[0]?.year ?? '';
           <p class="when mono">{stop.period}</p>
           <h3>{stop.title}</h3>
           <p class="org">{stop.org}</p>
+          {stop.summary && <p class="summary">{stop.summary}</p>}
           <dl class="stats">
             {stop.stats.map((stat) => (
               <div class="stat">
@@ -131,6 +132,13 @@ const first = timeline[0]?.year ?? '';
 
   .org {
     margin-top: 6px;
+    color: var(--muted);
+  }
+
+  .summary {
+    max-width: 46ch;
+    margin-top: 16px;
+    line-height: 1.5;
     color: var(--muted);
   }
 

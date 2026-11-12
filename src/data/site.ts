@@ -13,6 +13,7 @@ export interface Stop {
   period: string;
   title: string;
   org: string;
+  summary?: string;
   stats: Stat[];
   current?: boolean;
 }
@@ -70,8 +71,9 @@ export const timeline: Stop[] = [
     period: 'Jan - Jun 2025',
     title: 'Software Developer Engineer Intern',
     org: 'VComply Technologies',
+    summary: 'Added a scalable caching layer to our Lambda APIs and kept data in sync across 10+ entity types.',
     stats: [
-      { value: 60, suffix: '%', label: 'lower API latency' },
+      { value: 60, suffix: '%', label: 'lower Lambda API latency' },
       { value: 10, suffix: '+', label: 'entity types kept in sync' },
     ],
   },
@@ -80,10 +82,11 @@ export const timeline: Stop[] = [
     period: 'Jul 2025 - Jul 2026',
     title: 'Software Developer Engineer 1',
     org: 'VComply Technologies',
+    summary: 'Built a database-trigger pipeline that handles 100k+ events a day, using controlled concurrency and scheduled cron jobs.',
     stats: [
-      { value: 100, suffix: 'k+', label: 'events a day at peak' },
+      { value: 100, suffix: 'k+', label: 'pipeline events a day at peak' },
       { value: 35, prefix: '~', suffix: '%', label: 'faster incident recovery' },
-      { value: 0, label: 'downtime in Phase-1 migration' },
+      { value: 0, label: 'downtime during production migration' },
     ],
   },
   {
@@ -92,9 +95,10 @@ export const timeline: Stop[] = [
     title: 'Cloud Infrastructure Lead',
     org: 'VComply Technologies, Bengaluru',
     current: true,
+    summary: 'Lead cloud infrastructure for the company: production environments on AWS and GCP serving customers in Europe, the US and the Middle East.',
     stats: [
       { value: 80, prefix: '~', suffix: '%', label: 'less manual release and review work' },
-      { value: 3, label: 'platforms on AWS and GCP' },
+      { value: 3, label: 'production environments across AWS and GCP' },
     ],
   },
 ];
