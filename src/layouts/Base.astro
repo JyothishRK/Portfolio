@@ -4,11 +4,28 @@ import '@fontsource/jetbrains-mono/latin-400.css';
 import '../styles/global.css';
 import sansUrl from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
 import IntroScreen from '../components/IntroScreen.astro';
-import { profile } from '../data/site';
+import { contact, profile, skills, timeline } from '../data/site';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonical = new URL(`${base}/`, Astro.site);
 const ogImage = new URL(`${base}/og.png`, Astro.site);
+
+// schema.org Person: lets Google and AI assistants tie this page to the same person on LinkedIn and GitHub.
+const current = timeline.find((s) => s.current);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  url: canonical.href,
+  image: ogImage.href,
+  jobTitle: current?.title,
+  worksFor: { '@type': 'Organization', name: 'VComply Technologies' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Bengaluru', addressCountry: 'IN' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Vellore Institute of Technology' },
+  description: profile.description,
+  knowsAbout: skills.flatMap((g) => g.items),
+  sameAs: contact.links.map((l) => l.href),
+};
 ---
 
 <!doctype html>
@@ -26,7 +43,16 @@ const ogImage = new URL(`${base}/og.png`, Astro.site);
     <meta property="og:description" content={profile.description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={profile.title} />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content={profile.name} />
+    <link rel="sitemap" href={`${base}/sitemap.xml`} />
+    <link rel="alternate" type="text/plain" title="LLM summary" href={`${base}/llms.txt`} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="preload" href={sansUrl} as="font" type="font/woff2" crossorigin />
     <!-- Marks that scripts run, so CSS can pick the sideways timeline without a flash. -->
     <script is:inline>
