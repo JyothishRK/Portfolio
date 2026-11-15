@@ -2,5 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "rkjyothish.vercel.app" }],
+      "destination": "https://rkjyothish.is-a.dev/:path*",
+      "permanent": true
+    }
+  ]
 }
