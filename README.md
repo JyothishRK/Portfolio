@@ -29,4 +29,4 @@ npm run build   # production build into dist/
 
 ## Deploy
 
-Vercel deploys automatically on every push: pull requests get a preview, and `main` goes to rkjyothish.vercel.app. `vercel.json` tells it to build with Astro, and `package.json` pins the Node version Astro needs.
+Vercel deploys automatically on every push: pull requests get a preview, and `main` goes to rkjyothish.is-a.dev (rkjyothish.vercel.app redirects there). `vercel.json` tells it to build with Astro, and `package.json` pins the Node version Astro needs.
