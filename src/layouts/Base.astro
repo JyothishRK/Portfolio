@@ -12,6 +12,14 @@ const ogImage = new URL(`${base}/og.png`, Astro.site);
 
 // schema.org Person: lets Google and AI assistants tie this page to the same person on LinkedIn and GitHub.
 const current = timeline.find((s) => s.current);
+// WebSite.name is what Google shows as the site name above the result (instead of "is-a.dev").
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: profile.name,
+  alternateName: ['RK Jyothish', 'Jyothish RK'],
+  url: canonical.href,
+};
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -37,6 +45,8 @@ const jsonLd = {
     <meta name="description" content={profile.description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" type="image/png" sizes="192x192" href={`${base}/favicon-192.png`} />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
     <meta name="theme-color" content="#141513" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={profile.title} />
@@ -52,6 +62,7 @@ const jsonLd = {
     <meta name="author" content={profile.name} />
     <link rel="sitemap" href={`${base}/sitemap.xml`} />
     <link rel="alternate" type="text/plain" title="LLM summary" href={`${base}/llms.txt`} />
+    <script type="application/ld+json" set:html={JSON.stringify(website)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="preload" href={sansUrl} as="font" type="font/woff2" crossorigin />
     <!-- Marks that scripts run, so CSS can pick the sideways timeline without a flash. -->
